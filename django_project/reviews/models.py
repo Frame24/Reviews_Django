@@ -27,19 +27,20 @@ class Texts(models.Model):
 
 
 class TextsClasses(models.Model):
-    id = CompositeKey(columns=['text_id', 'class_id'])
-    text_id = models.ForeignKey(Texts, models.DO_NOTHING, primary_key=True)
+    id_texts_classes = models.AutoField(primary_key=True)
+    text_id = models.ForeignKey(Texts, models.DO_NOTHING)
     class_id = models.ForeignKey(Classes, models.DO_NOTHING)
     
 
     class Meta:
         managed = True
         db_table = 'texts_classes'
-        #unique_together = (('text_id', 'class_id'),)
+        unique_together = (('text_id', 'class_id'),)
 
 
 class TextsWords(models.Model):
-    text_id = models.ForeignKey(Texts, models.DO_NOTHING, primary_key=True)
+    id_texts_words = models.AutoField(primary_key=True)
+    text_id = models.ForeignKey(Texts, models.DO_NOTHING)
     word_id = models.ForeignKey('Words', models.DO_NOTHING)
     tfidf = models.FloatField()
 
@@ -62,7 +63,8 @@ class Words(models.Model):
 
 
 class WordsClasses(models.Model):
-    word_id = models.ForeignKey(Words, models.DO_NOTHING, primary_key=True)
+    id_words_classes = models.AutoField(primary_key=True)
+    word_id = models.ForeignKey(Words, models.DO_NOTHING)
     class_id = models.ForeignKey(Classes, models.DO_NOTHING)
     vector = models.FloatField()
 
