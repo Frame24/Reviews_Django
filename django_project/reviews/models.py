@@ -1,5 +1,5 @@
 from django.db import models
-
+from viewflow.fields import CompositeKey
 
 class Classes(models.Model):
     id_class = models.AutoField(primary_key=True)
@@ -27,6 +27,7 @@ class Texts(models.Model):
 
 
 class TextsClasses(models.Model):
+    id = CompositeKey(columns=['text_id', 'class_id'])
     text_id = models.ForeignKey(Texts, models.DO_NOTHING, primary_key=True)
     class_id = models.ForeignKey(Classes, models.DO_NOTHING)
     
@@ -34,7 +35,7 @@ class TextsClasses(models.Model):
     class Meta:
         managed = True
         db_table = 'texts_classes'
-        unique_together = (('text_id', 'class_id'),)
+        #unique_together = (('text_id', 'class_id'),)
 
 
 class TextsWords(models.Model):
